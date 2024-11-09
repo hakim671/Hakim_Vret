@@ -33,14 +33,12 @@ if name and hobby:
             df.to_excel(file_path, index=False)
             st.write(f"Данные сохранены в файле: {file_path}")
             
-            # Только для вас: Просмотр содержимого файла после записи
-            if st.session_state.get('is_admin', False):  # Вы можете установить is_admin в session_state
-                updated_df = pd.read_excel(file_path)
-                st.write("Содержимое файла после записи (только для вас):")
-                st.dataframe(updated_df)  # Вы можете оставить это для себя, если вам нужно
-
+            # Повторное чтение файла после записи
+            updated_df = pd.read_excel(file_path)
+            st.write("Содержимое файла после записи:")
+            st.write(updated_df)
         except Exception as e:
             st.write("Ошибка при записи в файл:", e)
 else:
     st.write("Введите данные, чтобы добавить их в базу.")
-
+st.write(df)
