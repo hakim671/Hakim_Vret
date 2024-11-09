@@ -1,7 +1,10 @@
 import streamlit as st
+import pandas as pd 
 
-year = st.number_input("Возраст",value=10)
-ves = st.number_input("Вес",value=30, step=10)
-rost = st.number_input("Рост",value=150, step=10)
-if st.button("Начать прогноз"):
-  st.write("Zoir Гей")
+df = pd.read_excel('.xlsx')
+name = st.text_input('Полное Имя')
+hobby = st.text_input('Хобби')
+df2 = pd.DataFrame({'full_name':name, 'Hoby':hobby})
+if(st.button('Внести в базу'):
+  df = pd.concat(df,df2)
+  st.write('Вы записаны в базу')
