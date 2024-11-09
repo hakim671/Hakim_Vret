@@ -1,12 +1,16 @@
 import streamlit as st
 import pandas as pd
+import os
 
-# Проверка на загрузку файла
+# Укажите полный путь к файлу Excel
+file_path = os.path.join(os.getcwd(), 'hoby.xlsx')
+
+# Проверка загрузки файла
 try:
-    df = pd.read_excel('hoby.xlsx')
+    df = pd.read_excel(file_path)
     st.write("Файл успешно загружен.")
 except FileNotFoundError:
-    # Если файла нет, создаем пустой DataFrame
+    # Если файл не найден, создаем пустой DataFrame
     df = pd.DataFrame(columns=['full_name', 'Hoby'])
     st.write("Файл не найден. Создан новый DataFrame.")
 
@@ -27,8 +31,9 @@ if name and hobby:
         try:
             # Очистка кэша перед записью
             st.cache_data.clear()
-            df.to_excel('hoby.xlsx', index=False)
+            df.to_excel(file_path, index=False)
             st.write('Вы записаны в базу')
+            st.write(f"Данные сохранены в файле: {file_path}")
         except Exception as e:
             st.write("Ошибка при записи в файл:", e)
 else:
