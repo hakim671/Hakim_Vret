@@ -41,4 +41,5 @@ if name and hobby:
             st.write("Ошибка при записи в файл:", e)
 else:
     st.write("Введите данные, чтобы добавить их в базу.")
+df = pd.read_excel(file_path)
 st.write(df)
