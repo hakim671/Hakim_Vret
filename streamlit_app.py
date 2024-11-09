@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 # Укажите полный путь к файлу Excel
-file_path = os.path.join(os.getcwd(), 'hoby.xlsx')
+file_path = 'hoby.xlsx'
 
 # Проверка загрузки файла
 try:
@@ -30,17 +30,22 @@ if name and hobby:
         
         # Попытка записи в файл
         try:
-            # Очистка кэша перед записью
-            st.cache_data.clear()
             df.to_excel(file_path, index=False)
+            st.write(f"Данные сохранены в файле: {file_path}")
             
             # Повторное чтение файла после записи
             updated_df = pd.read_excel(file_path)
             st.write("Содержимое файла после записи:")
             st.write(updated_df)
 
-            # Уведомление об успешной записи
-            st.write(f"Данные сохранены в файле: {file_path}")
+            # Предлагаем скачать обновленный файл
+            with open(file_path, "rb") as file:
+                btn = st.download_button(
+                    label="Скачать файл с данными",
+                    data=file,
+                    file_name="hoby.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
         except Exception as e:
             st.write("Ошибка при записи в файл:", e)
 else:
