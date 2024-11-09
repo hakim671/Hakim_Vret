@@ -24,6 +24,7 @@ if name and hobby:
     if st.button('Внести в базу'):
         # Конкатенация данных
         df = pd.concat([df, df2], ignore_index=True)
+        
         # Проверка содержимого перед записью
         st.write("DataFrame для записи:", df)
         
@@ -32,7 +33,13 @@ if name and hobby:
             # Очистка кэша перед записью
             st.cache_data.clear()
             df.to_excel(file_path, index=False)
-            st.write('Вы записаны в базу')
+            
+            # Повторное чтение файла после записи
+            updated_df = pd.read_excel(file_path)
+            st.write("Содержимое файла после записи:")
+            st.write(updated_df)
+
+            # Уведомление об успешной записи
             st.write(f"Данные сохранены в файле: {file_path}")
         except Exception as e:
             st.write("Ошибка при записи в файл:", e)
